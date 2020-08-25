@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
@@ -13,6 +14,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.security.access.expression.SecurityExpressionHandler;
 
 @Configurable
@@ -43,15 +47,23 @@ public class OAuthConfig extends WebSecurityConfigurerAdapter {
 		 * url로 이동.
 		 */
 
-		http.authorizeRequests()
-			.mvcMatchers("/", "signup","login","/home").permitAll()
-			.mvcMatchers("/user").hasRole("USER")
-			.mvcMatchers("/admin").hasRole("ADMIN")
-			.anyRequest().authenticated()
-			.expressionHandler(expressionHandler());
-		
+		http.authorizeRequests().mvcMatchers("/", "signup", "login", "/home").permitAll().mvcMatchers("/user")
+				.hasRole("USER").mvcMatchers("/admin").hasRole("ADMIN").anyRequest().authenticated()
+				.expressionHandler(expressionHandler());
+
 		http.formLogin().loginPage("/login").successForwardUrl("/");
 
+	}
+
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("*"));
+		configuration.setAllowedMethods(Arrays.asList("*"));
+		configuration.setAllowedHeaders(Arrays.asList("*"));
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
 	}
 
 }

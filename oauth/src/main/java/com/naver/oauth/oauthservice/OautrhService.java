@@ -33,7 +33,6 @@ public class OautrhService implements UserDetailsService{
 		}
 		//admin 아이디만 권한을 준다.
 		String role = "admin".equals(user.getId()) ? "ADMIN" : "USER";
-		System.out.println(role+"<>>>>>>>>>>>>");
 		return User.builder()
 				.username(user.getId())
 				.password(user.getPwd())
