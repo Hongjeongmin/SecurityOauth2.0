@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naver.oauthREST.repo.UserRepo"> 
+	<select id="login" parameterType="string" resultType="user">
+		select * from user where id = #{id}
+	</select>
+	
+	<insert id="signup" parameterType="user">
+		insert into user(id,pwd,nickname) values(#{id},#{pwd},#{nickname})
+	</insert>
+</mapper>

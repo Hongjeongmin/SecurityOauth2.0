@@ -1,5 +1,7 @@
 package me.whiteship.demooauth2.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,7 +28,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Autowired
     private UserDetailsService userDetailsService;
-
+    
+    @Autowired
+    private DataSource dataSource;
     @Override
     public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
         configurer
@@ -38,7 +42,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                         "refresh_token",
                         "implicit")
                 .scopes("read", "write", "trust")
-                .redirectUris("http://locahost:8081/")
                 .accessTokenValiditySeconds(1*60*60) 
                 .refreshTokenValiditySeconds(24*60*60);
     }

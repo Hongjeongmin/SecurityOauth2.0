@@ -60,12 +60,12 @@ public class MainController {
 		return m;
 	}
 	
-	@GetMapping("/login")
+	@GetMapping("login")
 	public String loginForm() {
 		return "login";
 	}
 
-	@GetMapping("/logout")
+	@GetMapping("logout")
 	public String logoutForm() {
 		return "logout";
 	}

@@ -47,23 +47,18 @@ public class OAuthConfig extends WebSecurityConfigurerAdapter {
 		 * url로 이동.
 		 */
 
-		http.authorizeRequests().mvcMatchers("/", "signup", "login", "/home").permitAll().mvcMatchers("/user")
-				.hasRole("USER").mvcMatchers("/admin").hasRole("ADMIN").anyRequest().authenticated()
-				.expressionHandler(expressionHandler());
+		http.authorizeRequests()
+			.mvcMatchers("/", "/signup", "/home").permitAll()
+			.mvcMatchers("/user").hasRole("USER")
+			.mvcMatchers("/admin").hasRole("ADMIN")
+			.anyRequest().authenticated();
+//			.expressionHandler(expressionHandler());
 
-		http.formLogin().loginPage("/login").successForwardUrl("/");
-
+//		http.formLogin().loginPage("/login").successForwardUrl("/");
+		http.formLogin().loginPage("/login")
+		.defaultSuccessUrl("/main",true)
+	.permitAll();
 	}
 
-	@Bean
-	public CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("*"));
-		configuration.setAllowedMethods(Arrays.asList("*"));
-		configuration.setAllowedHeaders(Arrays.asList("*"));
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", configuration);
-		return source;
-	}
 
 }

@@ -59,6 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
             .authorizeRequests()
                 .antMatchers("/api-docs/**").permitAll();
+    	http.formLogin();
     }
 
     @Bean

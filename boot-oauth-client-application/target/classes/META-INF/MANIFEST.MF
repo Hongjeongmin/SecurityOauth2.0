@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Built-By: user
+Build-Jdk: 14.0.2
+Implementation-Title: boot-client-application
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.oauth
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-URL: http://projects.spring.io/spring-boot/boot-client-ap
+ plication/
+Created-By: Maven Integration for Eclipse
+

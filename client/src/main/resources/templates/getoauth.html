@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>getOauth</title>
+
+</head>
+<body>
+	<h1>getOauth page</h1>
+	<br>
+	<form action="http://localhost:8080/oauth/authorize" method="post">
+		<p>
+			<label>Enter Employee Id</label> 
+			<input type="text" name="response_type" value="code" />
+			<input type="text" name="client_id" value="javainuse" />
+			<input type="text" name="client_id" value="javainuse" />
+			<input type="text" name="redirect_uri" value="http://localhost:8080/showEmployees" />
+			<input type="text" name="scope" value="read" /> 
+			<input type="SUBMIT" value="Get Employee info" />
+			
+	</form>
+</body>
+</html>
