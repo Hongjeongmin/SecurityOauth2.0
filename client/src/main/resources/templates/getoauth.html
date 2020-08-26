@@ -6,17 +6,18 @@
 
 </head>
 <body>
-	<h1>getOauth page</h1>
+	<h1>클라이언트 등록</h1>
 	<br>
-	<form action="http://localhost:8080/oauth/authorize" method="post">
+	<form action="/getoauth" th:action="@{/getoauth}" method="post">
 		<p>
-			<label>Enter Employee Id</label> 
-			<input type="text" name="response_type" value="code" />
-			<input type="text" name="client_id" value="javainuse" />
-			<input type="text" name="client_id" value="javainuse" />
-			<input type="text" name="redirect_uri" value="http://localhost:8080/showEmployees" />
-			<input type="text" name="scope" value="read" /> 
-			<input type="SUBMIT" value="Get Employee info" />
+			<input type="text" name="appname" value="appname"/><br>
+			<input type="text" name="client_id"value="client_id"/><br>
+			<input type="text" name="client_secret" value="client_secret"/><br>
+			<input type="text" name="authorized_grant_types" value="password,authorization_code,refresh_token,implicit"/><br>
+			<input type="text" name="scope" value="read,write,trust"/><br>
+			<input type="text" name="web_server_redirect_uri" value="http://localhost:8090/test"/><br>
+			<input type="SUBMIT" value="send"/>
+		</p>
 			
 	</form>
 </body>

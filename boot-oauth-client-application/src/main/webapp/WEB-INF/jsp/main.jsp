@@ -5,6 +5,6 @@
 <title>Show Employees</title>
 </head>
 <body>	
-	<a href="http://localhost:8080/oauth/authorize?client_id=naver-client&redirect_uri=http://localhost:8090/test&response_type=code&scope=read">login</a>
+	<a href="http://localhost:8080/oauth/authorize?client_id=bye&redirect_uri=http://localhost:8090/test&response_type=code&scope=read write">login</a>
 </body>
 </html>

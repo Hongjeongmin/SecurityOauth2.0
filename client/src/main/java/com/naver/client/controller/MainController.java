@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.naver.client.Pwd;
+import com.naver.client.dto.Oauth_client_details;
 import com.naver.client.dto.User;
+import com.naver.client.outhservice.Oauth_client_detailsService;
 import com.naver.client.userservice.UserService;
 
 @Controller
@@ -26,6 +28,8 @@ public class MainController {
 	Pwd pwd;
 	@Autowired
 	PasswordEncoder passwordEncoder;
+	@Autowired
+	Oauth_client_detailsService ocdService;
 
 	@GetMapping("/")
 	public ModelAndView main(Model model, Principal principal) {
@@ -129,11 +133,32 @@ public class MainController {
 
 	@GetMapping("getoauth")
 	public String getoauthForm() {
+		System.out.println("getoauth");
 		return "getoauth";
 	}
 
 	@PostMapping("getoauth")
-	public String getoauthProccess(HttpServletRequest request) {
+	public String getoauthProccess(HttpServletRequest request,Principal principal) {
+		Oauth_client_details ocd = new Oauth_client_details();
+		/*
+		 * input values
+		 * scope,grant_type은 ','로 구분한다.
+		 */
+		
+		System.out.println("yours name " + principal.getName());
+		
+		ocd.setClient_id(request.getParameter("client_id"));
+		ocd.setClient_secret(request.getParameter("client_secret"));
+		ocd.setAuthorized_grant_types(request.getParameter("authorized_grant_types"));
+		ocd.setScope(request.getParameter("scope"));
+		ocd.setWeb_server_redirect_uri(request.getParameter("web_server_redirect_uri"));
+		ocd.setAccess_token_validity("3600");
+		ocd.setRefresh_token_validity("21600");
+		ocd.setAutoapprove("false");
+		
+		
+		ocdService.insert(ocd);
+		
 		return "redirect:/";
 	}
 	

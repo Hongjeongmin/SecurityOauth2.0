@@ -1,0 +1,30 @@
+package com.naver.client.outhservice;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.naver.client.dto.Oauth_client_details;
+import com.naver.client.repo.Oauth_client_detailsRepo;
+
+@Service
+public class Oauth_client_detailsServiceImpl implements Oauth_client_detailsService {
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	Oauth_client_detailsRepo odsRepo;
+	
+	@Override
+	public boolean insert(Oauth_client_details ocd) {
+		ocd.encodeClient_secret(passwordEncoder);
+		return odsRepo.insert(ocd);
+	}
+
+	@Override
+	public Oauth_client_details select() {
+		return odsRepo.select();
+	}
+
+}

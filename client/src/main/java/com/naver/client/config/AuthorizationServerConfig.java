@@ -36,6 +36,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
         configurer
         		.jdbc(dataSource);
+// inMemort 로 테스트
 //                .inMemory()
 //                .withClient("naver-client")
 //                .secret(passwordEncoder.encode("naver-client"))
@@ -55,4 +56,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService);
     }
+    /*
+     * 입력 폼 예시 (이렇게 들어가면 로그인하고 인증코드를 Redirect로 던져준다.)
+     * http://localhost:8080/oauth/authorize?client_id=naver-client&redirect_uri=http://localhost:8090/test&response_type=code&scope=read
+     */
 }

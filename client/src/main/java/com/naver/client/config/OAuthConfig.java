@@ -74,7 +74,7 @@ public class OAuthConfig extends WebSecurityConfigurerAdapter {
 //				.authenticated().expressionHandler(expressionHandler());
 
 //		http.formLogin().loginPage("/login").successForwardUrl("/");
-		http.formLogin().permitAll();
+		http.formLogin().loginPage("/login").permitAll();
 		http.logout().logoutSuccessUrl("/");
 	}
 	

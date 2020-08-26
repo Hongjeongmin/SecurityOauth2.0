@@ -32,12 +32,13 @@ public class EmployeeController {
 	
 	@GetMapping("/test")
 	public ModelAndView test(@RequestParam("code") String code)  throws JsonProcessingException, IOException{
+		System.out.println(">>>>>test");
 		ResponseEntity<String> response = null;
 		System.out.println("Authorization Ccode------" + code);
 
 		RestTemplate restTemplate = new RestTemplate();
 
-		String credentials = "naver-client:naver-client";
+		String credentials = "bye:bye";
 		String encodedCredentials = new String(Base64.encodeBase64(credentials.getBytes()));
 
 		HttpHeaders headers = new HttpHeaders();
