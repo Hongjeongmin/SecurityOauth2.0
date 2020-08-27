@@ -38,7 +38,7 @@ public class EmployeeController {
 
 		RestTemplate restTemplate = new RestTemplate();
 
-		String credentials = "bye:bye";
+		String credentials = "cw1Kx9RM15zlT0WNhMaE9V8yjEX44tp687UuPar64bO4A8XK9TJDM7aeQ2lt:R1R7xfBJmFT2brZn8cr0RvxY66580Gn04DTJ2h494by1sG6h5nrr6tk9wrng";
 		String encodedCredentials = new String(Base64.encodeBase64(credentials.getBytes()));
 
 		HttpHeaders headers = new HttpHeaders();

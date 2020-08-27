@@ -27,4 +27,16 @@ public class Oauth_client_detailsServiceImpl implements Oauth_client_detailsServ
 		return odsRepo.select();
 	}
 
+	@Override
+	public boolean update(Oauth_client_details ocd) {
+		ocd.encodeClient_secret(passwordEncoder);
+		return odsRepo.update(ocd);
+	}
+
+	@Override
+	public boolean delete(String client_id) {
+		
+		return odsRepo.delete(client_id);
+	}
+
 }

@@ -3,19 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <title>getOauth</title>
+<style>
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
 
+input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+div {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+</style>
 </head>
 <body>
 	<h1>클라이언트 등록</h1>
-	<br>
 	<form action="/getoauth" th:action="@{/getoauth}" method="post">
 		<p>
-			<input type="text" name="appname" value="appname"/><br>
-			<input type="text" name="client_id"value="client_id"/><br>
-			<input type="text" name="client_secret" value="client_secret"/><br>
-			<input type="text" name="authorized_grant_types" value="password,authorization_code,refresh_token,implicit"/><br>
-			<input type="text" name="scope" value="read,write,trust"/><br>
+			<b>App name :</b> <br><input type="text" name="appname" value="yours appname"/><br>
+
+			<b>authorize_grant_types :</b> <br>
+			<div>
+			<input type ="checkbox" name ="authorized_grant_types" value="password">password</input>&nbsp;
+			<input type ="checkbox" name ="authorized_grant_types" value="authorization_code">authorization_code</input>&nbsp;
+			<input type ="checkbox" name ="authorized_grant_types" value="refresh_token">refresh_token</input>&nbsp;
+			<input type ="checkbox" name ="authorized_grant_types" value="implicit">implicit</input><br>
+			</div><br>
+			
+			<b>scope :</b> <br>
+			<div>
+			<input type ="checkbox" name ="scopes" value="read">read</input>&nbsp;
+			<input type ="checkbox" name ="scopes" value="write">write</input>&nbsp;
+			<input type ="checkbox" name ="scopes" value="trust">trust</input><br>
+			</div>
+			<b>web_server_redirect_uri: </b><br>
 			<input type="text" name="web_server_redirect_uri" value="http://localhost:8090/test"/><br>
+			<br>
 			<input type="SUBMIT" value="send"/>
 		</p>
 			

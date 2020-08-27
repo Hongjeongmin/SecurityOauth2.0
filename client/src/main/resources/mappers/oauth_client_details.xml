@@ -33,6 +33,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="select" resultType="oauth_client_details">
-		SECERT * FROM oauth_client_details;
+		select * from oauth_client_details;
 	</select>
+	
+	<update id="update" parameterType="oauth_client_details">
+		update oauth_client_details set client_secret = #{client_secret} where client_id =#{client_id}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from oauth_client_details where client_id =#{client_id}
+	</delete>
 </mapper>

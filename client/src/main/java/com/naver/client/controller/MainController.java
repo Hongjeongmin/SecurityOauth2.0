@@ -1,22 +1,25 @@
 package com.naver.client.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.naver.client.Pwd;
+import com.naver.client.dto.Client_manager;
 import com.naver.client.dto.Oauth_client_details;
 import com.naver.client.dto.User;
+import com.naver.client.outhservice.Client_managerService;
 import com.naver.client.outhservice.Oauth_client_detailsService;
 import com.naver.client.userservice.UserService;
 
@@ -24,18 +27,21 @@ import com.naver.client.userservice.UserService;
 public class MainController {
 	@Autowired
 	UserService userService;
+
 	@Autowired
 	Pwd pwd;
+
 	@Autowired
 	PasswordEncoder passwordEncoder;
+
 	@Autowired
 	Oauth_client_detailsService ocdService;
 
+	@Autowired
+	Client_managerService client_managerService;
+
 	@GetMapping("/")
 	public ModelAndView main(Model model, Principal principal) {
-
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Object object = authentication.getPrincipal();
 
 		ModelAndView m = null;
 
@@ -127,44 +133,75 @@ public class MainController {
 	}
 
 	@GetMapping("oauthlist")
-	public String oauthlist() {
-		return "oauthlist";
+	public ModelAndView oauthlist(Principal principal) {
+		ModelAndView m = new ModelAndView("oauthlist");
+		List<Client_manager> clinet_managers = client_managerService.select(principal.getName());
+		m.addObject("client_managers", clinet_managers);
+
+		return m;
 	}
 
 	@GetMapping("getoauth")
 	public String getoauthForm() {
-		System.out.println("getoauth");
+
 		return "getoauth";
 	}
 
+	@Transactional
 	@PostMapping("getoauth")
-	public String getoauthProccess(HttpServletRequest request,Principal principal) {
-		Oauth_client_details ocd = new Oauth_client_details();
+	public String getoauthProccess(@RequestParam List<String> authorized_grant_types, @RequestParam List<String> scopes,
+			@RequestParam("web_server_redirect_uri") String web_server_redirect_uri,
+			@RequestParam("appname") String appname, Principal principal) {
 		/*
-		 * input values
-		 * scope,grant_type은 ','로 구분한다.
+		 * input values scope,grant_type은 ','로 구분한다.
 		 */
-		
-		System.out.println("yours name " + principal.getName());
-		
-		ocd.setClient_id(request.getParameter("client_id"));
-		ocd.setClient_secret(request.getParameter("client_secret"));
-		ocd.setAuthorized_grant_types(request.getParameter("authorized_grant_types"));
-		ocd.setScope(request.getParameter("scope"));
-		ocd.setWeb_server_redirect_uri(request.getParameter("web_server_redirect_uri"));
-		ocd.setAccess_token_validity("3600");
-		ocd.setRefresh_token_validity("21600");
-		ocd.setAutoapprove("false");
-		
-		
+
+		Client_manager client_manager = new Client_manager();
+		client_manager.Create_client_manger(principal.getName(), appname, pwd);
+
+		Oauth_client_details ocd = new Oauth_client_details();
+		ocd.setClient_id(client_manager.getClient_id());
+		ocd.setWeb_server_redirect_uri(web_server_redirect_uri);
+		ocd.setClient_secret(client_manager.getClient_secret());
+		ocd.setAuthorized_grant_types(String.join(",", authorized_grant_types));
+		ocd.setScope(String.join(",", scopes));
+
+		client_managerService.insert(client_manager);
 		ocdService.insert(ocd);
-		
+
 		return "redirect:/";
 	}
-	
-	@GetMapping("test")
-	public String testForm() {
-		return "test";
+	@Transactional
+	@GetMapping("delete")
+	public ModelAndView delete(@RequestParam("client_id") String client_id,Principal principal) {
+		ModelAndView m = new ModelAndView("oauthlist");
+		List<Client_manager> clinet_managers = client_managerService.select(principal.getName());
+		m.addObject("client_managers", clinet_managers);
+		
+		client_managerService.delete(client_id);
+		ocdService.delete(client_id);
+		return m;
 	}
+	
+	@Transactional
+	@GetMapping("update")
+	public ModelAndView update(@RequestParam("client_id") String client_id,Principal principal) {
+		Client_manager cm = new Client_manager();
+		Oauth_client_details ocd = new Oauth_client_details();
+		
+		cm.setId(principal.getName());
+		cm.setClient_secret(pwd.getRnadomcode(60));
+		ocd.setClient_id(client_id);
+		ocd.setClient_secret(cm.getClient_secret());
+		client_managerService.updateSecret(cm);
+		ocdService.update(ocd);
+		
+		ModelAndView m = new ModelAndView("oauthlist");
+		List<Client_manager> clinet_managers = client_managerService.select(principal.getName());
+		m.addObject("client_managers", clinet_managers);
+		
+		return m;
+	}
+	
 
 }

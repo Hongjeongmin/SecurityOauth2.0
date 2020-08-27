@@ -34,7 +34,6 @@ public class MainController {
 		
 		ModelAndView m = null;
 
-		System.out.println("안녕하세요 ㅎㅎ");
 		if (principal == null) {
 			m = new ModelAndView("home");
 			m.addObject("message", "인증 되지 않은 사람입니다. 인증에 제한이됩니다.");

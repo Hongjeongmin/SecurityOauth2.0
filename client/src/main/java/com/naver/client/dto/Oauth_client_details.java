@@ -15,6 +15,12 @@ public class Oauth_client_details {
 	private String refresh_token_validity;
 	private String additional_information;
 	private String autoapprove;
+	
+	public Oauth_client_details() {
+		this.access_token_validity ="3600";
+		this.refresh_token_validity ="21600";
+		this.autoapprove = "false";
+	}
 
 	public String getClient_id() {
 		return client_id;
@@ -107,7 +113,7 @@ public class Oauth_client_details {
 	public void encodeClient_secret(PasswordEncoder passwordEncoder) {
 		this.client_secret = passwordEncoder.encode(this.client_secret);
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Oauth_client_details [client_id=" + client_id + ", resource_ids=" + resource_ids + ", client_secret="

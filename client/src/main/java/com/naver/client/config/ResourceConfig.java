@@ -34,9 +34,14 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter{
 //			.exceptionHandling()
 //				.accessDeniedHandler(new OAuth2AccessDeniedHandler());
 		
-		http.requestMatchers().antMatchers("/api/**")
+		http.requestMatchers().antMatchers("/api/read/**")
 			.and()
 		.authorizeRequests().anyRequest().access("#oauth2.hasScope('read')");
+		
+		http.requestMatchers().antMatchers("/api/write/**")
+			.and()
+		.authorizeRequests().anyRequest().access("#oauth2.hasScope('write')");
+		
 	}
 
 	
