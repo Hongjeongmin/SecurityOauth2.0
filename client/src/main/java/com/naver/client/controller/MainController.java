@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.naver.client.Pwd;
-import com.naver.client.dto.Client_manager;
-import com.naver.client.dto.Oauth_client_details;
-import com.naver.client.dto.User;
+import com.naver.client.entity.Client_manager;
+import com.naver.client.entity.Oauth_client_details;
+import com.naver.client.entity.User;
 import com.naver.client.outhservice.Client_managerService;
 import com.naver.client.outhservice.Oauth_client_detailsService;
 import com.naver.client.userservice.UserService;
@@ -157,7 +157,7 @@ public class MainController {
 		 */
 
 		Client_manager client_manager = new Client_manager();
-		client_manager.Create_client_manger(principal.getName(), appname, pwd);
+		client_manager.Create_client_manger(principal.getName(), appname, pwd, web_server_redirect_uri);
 
 		Oauth_client_details ocd = new Oauth_client_details();
 		ocd.setClient_id(client_manager.getClient_id());
@@ -171,37 +171,37 @@ public class MainController {
 
 		return "redirect:/";
 	}
+
 	@Transactional
 	@GetMapping("delete")
-	public ModelAndView delete(@RequestParam("client_id") String client_id,Principal principal) {
+	public ModelAndView delete(@RequestParam("client_id") String client_id, Principal principal) {
 		ModelAndView m = new ModelAndView("oauthlist");
 		List<Client_manager> clinet_managers = client_managerService.select(principal.getName());
 		m.addObject("client_managers", clinet_managers);
-		
+
 		client_managerService.delete(client_id);
 		ocdService.delete(client_id);
 		return m;
 	}
-	
+
 	@Transactional
 	@GetMapping("update")
-	public ModelAndView update(@RequestParam("client_id") String client_id,Principal principal) {
+	public ModelAndView update(@RequestParam("client_id") String client_id, Principal principal) {
 		Client_manager cm = new Client_manager();
 		Oauth_client_details ocd = new Oauth_client_details();
-		
+
 		cm.setId(principal.getName());
 		cm.setClient_secret(pwd.getRnadomcode(60));
 		ocd.setClient_id(client_id);
 		ocd.setClient_secret(cm.getClient_secret());
 		client_managerService.updateSecret(cm);
 		ocdService.update(ocd);
-		
+
 		ModelAndView m = new ModelAndView("oauthlist");
 		List<Client_manager> clinet_managers = client_managerService.select(principal.getName());
 		m.addObject("client_managers", clinet_managers);
-		
+
 		return m;
 	}
-	
 
 }

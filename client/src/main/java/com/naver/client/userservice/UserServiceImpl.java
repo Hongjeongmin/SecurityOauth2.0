@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.naver.client.dto.User;
+import com.naver.client.entity.User;
 import com.naver.client.repo.UserRepo;
 
 
@@ -32,6 +32,16 @@ public class UserServiceImpl implements UserService {
 	public boolean update(User user) {
 		user.encodePassword(passwordEncoder);
 		return userRepo.update(user);
+	}
+
+	@Override
+	public User select(String id) {
+		return userRepo.select(id);
+	}
+
+	@Override
+	public boolean updateNickname(User user) {
+		return userRepo.updateNickname(user);
 	}
 
 }

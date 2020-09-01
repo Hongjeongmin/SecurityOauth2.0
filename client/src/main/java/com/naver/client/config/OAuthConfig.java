@@ -68,7 +68,6 @@ public class OAuthConfig extends WebSecurityConfigurerAdapter {
 		 */
 		
 		http.authorizeRequests().anyRequest().permitAll();
-		
 //		http.authorizeRequests().mvcMatchers("/", "/signup", "home", "forgot", "getoauth", "oauthlist","test").permitAll()
 //				.mvcMatchers("/user").hasRole("USER").mvcMatchers("/admin").hasRole("ADMIN").anyRequest()
 //				.authenticated().expressionHandler(expressionHandler());

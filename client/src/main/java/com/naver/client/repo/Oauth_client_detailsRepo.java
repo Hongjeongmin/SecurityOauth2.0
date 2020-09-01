@@ -1,6 +1,6 @@
 package com.naver.client.repo;
 
-import com.naver.client.dto.Oauth_client_details;
+import com.naver.client.entity.Oauth_client_details;
 
 public interface Oauth_client_detailsRepo {
 	boolean insert(Oauth_client_details ocd);

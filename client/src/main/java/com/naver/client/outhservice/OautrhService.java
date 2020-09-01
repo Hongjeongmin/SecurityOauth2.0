@@ -26,7 +26,7 @@ public class OautrhService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		com.naver.client.dto.User user = userService.login(username);
+		com.naver.client.entity.User user = userService.login(username);
 		
 		
 		if(user == null) {

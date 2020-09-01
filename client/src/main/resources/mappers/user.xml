@@ -7,14 +7,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select *
 		from user where id = #{id}
 	</select>
-	
+
 	<update id="update" parameterType="user">
-		update user set pwd = #{pwd} where id = #{id}
+		update user set pwd = #{pwd}
+		where id = #{id}
 	</update>
-	
+
+	<update id="updateNickname" parameterType="user">
+		update user set nickname = #{nickname}
+		where id = #{id}
+	</update>
+
 	<insert id="signup" parameterType="user">
 		insert into
 		user(id,pwd,nickname) values(#{id},#{pwd},#{nickname})
 	</insert>
+
+	<select id="select" parameterType="string" resultType="user">
+		select *
+		from user where id = #{id}
+	</select>
 
 </mapper>

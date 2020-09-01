@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.naver.client.dto.Oauth_client_details;
+import com.naver.client.entity.Oauth_client_details;
 import com.naver.client.repo.Oauth_client_detailsRepo;
 
 @Service

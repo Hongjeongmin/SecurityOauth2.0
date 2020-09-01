@@ -5,13 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.naver.client.dto.Client_manager;
+import com.naver.client.entity.Client_manager;
 import com.naver.client.repo.Client_managerRepo;
 
 @Service
-public class Client_managerServiceImpl
-
-		implements Client_managerService {
+public class Client_managerServiceImpl implements Client_managerService {
 
 	@Autowired
 	Client_managerRepo client_managerRepo;

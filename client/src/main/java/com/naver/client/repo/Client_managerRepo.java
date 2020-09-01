@@ -2,7 +2,7 @@ package com.naver.client.repo;
 
 import java.util.List;
 
-import com.naver.client.dto.Client_manager;
+import com.naver.client.entity.Client_manager;
 
 public interface Client_managerRepo {
 	boolean insert(Client_manager cm);
