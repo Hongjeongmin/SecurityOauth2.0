@@ -1,4 +1,4 @@
-package com.naver.client.mapper;
+package com.naver.projectserver.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

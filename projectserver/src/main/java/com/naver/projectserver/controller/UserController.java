@@ -1,4 +1,4 @@
-package com.naver.client.controller;
+package com.naver.projectserver.controller;
 
 import java.security.Principal;
 import java.util.HashMap;
@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.naver.client.dto.UserDto;
-import com.naver.client.entity.User;
-import com.naver.client.userservice.UserService;
-@RequestMapping("/api")
+import com.naver.projectserver.dto.UserDto;
+import com.naver.projectserver.mapper.User;
+import com.naver.projectserver.service.UserService;
+@RequestMapping("/api/users")
 @RestController
 public class UserController {
 
 	@Autowired
 	UserService userService;
 
-	@GetMapping("/users")
+	@GetMapping
 	public ResponseEntity searchUser(Principal principal) {
 
 		User user = userService.select(principal.getName());
@@ -32,7 +32,7 @@ public class UserController {
 		return ResponseEntity.ok(map);
 	}
 
-	@PutMapping("/users")
+	@PutMapping
 	public ResponseEntity updateUser(Principal principal, @RequestBody UserDto userDto) {
 		User user = userService.login(principal.getName());
 		
