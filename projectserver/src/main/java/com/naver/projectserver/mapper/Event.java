@@ -2,11 +2,14 @@ package com.naver.projectserver.mapper;
 
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /*
  * REST API TEST Data
@@ -18,6 +21,7 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
+@ToString
 public class Event {
 	private Integer id;
 	private String name;
@@ -26,11 +30,13 @@ public class Event {
 	private String location; // (optional) 이게 없으면 온라인 모임
 	private int basePrice; // (optional)
 	private int maxPrice; // (optional)
+//	@DateTimeFormat(pattern = "yyyy-MM-dd kk:mm:ss")
 	private LocalDateTime beginEventDateTime;
+//	@DateTimeFormat(pattern = "yyyy-MM-dd kk:mm:ss")
 	private LocalDateTime endEventDateTime;
 	private boolean online;
 	private boolean free;
-	
+
 	/*
 	 * 입력 값으로 online 과 free 의 상태를 변형한다.
 	 */

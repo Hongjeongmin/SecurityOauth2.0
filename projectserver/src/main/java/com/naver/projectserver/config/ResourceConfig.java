@@ -44,8 +44,8 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
 //		http.requestMatchers().antMatchers("/api/read/**").and().authorizeRequests().anyRequest()
 //				.access("#oauth2.hasScope('read')");
 //		http.requestMatchers().antMatchers("/api/users/**").and().authorizeRequests().anyRequest().access("#oauth2.hasScope('trust')");
-		
-		http.cors().disable();
+//		
+//		http.cors().disable();
 //		
 	}
 

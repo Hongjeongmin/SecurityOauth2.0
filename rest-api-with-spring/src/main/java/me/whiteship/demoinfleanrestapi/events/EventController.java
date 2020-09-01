@@ -1,6 +1,7 @@
 package me.whiteship.demoinfleanrestapi.events;
 
 import me.whiteship.demoinfleanrestapi.accounts.Account;
+
 import me.whiteship.demoinfleanrestapi.accounts.CurrentUser;
 import me.whiteship.demoinfleanrestapi.common.ErrorsResource;
 import org.modelmapper.ModelMapper;
