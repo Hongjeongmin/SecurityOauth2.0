@@ -11,8 +11,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update event set description = #{description} where id = #{id} and owner =#{owner}
 	</update>
 	
-	<delete id="delete" parameterType="string">
-		delete from event where id = #{id}
+	<delete id="delete" parameterType="event">
+		delete from event where id = #{id} and owner = #{owner}
 	</delete>
 	
 	<select id="selectOne" parameterType="string" resultType="event">

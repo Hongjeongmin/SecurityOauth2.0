@@ -2,9 +2,9 @@ package com.naver.projectserver.dto;
 
 import java.time.LocalDateTime;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,22 +13,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
+@Getter@Setter@Builder
+@NoArgsConstructor@AllArgsConstructor@ToString
 public class EventDto {
 	@NotEmpty
 	private String name;
+	@NotNull
 	private String description;
 	private String location; // (optional) 이게 없으면 온라인 모임
+	@Min(0)
 	private int basePrice; // (optional)
+	@Min(0)
 	private int maxPrice; // (optional)
-
-//	@DateTimeFormat(pattern = "yyyy-MM-dd kk:mm:ss")
 	private LocalDateTime beginEventDateTime;
-//	@DateTimeFormat(pattern = "yyyy-MM-dd kk:mm:ss")
 	private LocalDateTime endEventDateTime;
 }

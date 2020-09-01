@@ -23,8 +23,8 @@ public class EventServiceImpl implements EventService {
 		return eventRepo.update(event);
 	}
 	@Override
-	public boolean delete(String id) {
-		return eventRepo.delete(id);
+	public boolean delete(Event event) {
+		return eventRepo.delete(event);
 	}
 	@Override
 	public Event selectOne(String id) {

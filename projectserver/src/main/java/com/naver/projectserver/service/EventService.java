@@ -7,7 +7,7 @@ import com.naver.projectserver.mapper.Event;
 public interface EventService {
 	boolean insert(Event event);
 	boolean update(Event event);
-	boolean delete(String id);
+	boolean delete(Event event);
 	Event selectOne(String id);
 	List<Event> selectAll(String owner);
 }

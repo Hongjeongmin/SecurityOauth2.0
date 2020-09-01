@@ -21,8 +21,8 @@ public class Oauth_client_details {
 	private String autoapprove;
 
 	public Oauth_client_details() {
-		this.access_token_validity = "3600";
-		this.refresh_token_validity = "21600";
+		this.access_token_validity = "7200";
+		this.refresh_token_validity = "2160000";
 		this.autoapprove = "false";
 	}
 
